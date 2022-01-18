@@ -1,0 +1,7 @@
+/.venv
+
+poetry.toml
+.env
+
+/src/data/*
+!/src/data/.keep
