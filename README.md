@@ -56,6 +56,9 @@ $ vi .env
 ```shell
 # 事前に環境変数の設定を完了させておく
 (.venv)$ python src/serialclient/main.py
+
+# .env で設定した内容でArduinoとシリアル通信をできるようになる
+# 得られたデータは src/data/ 配下のCSVファイルに保存される
 ```
 
 #### HTTP通信サーバー
