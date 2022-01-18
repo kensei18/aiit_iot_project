@@ -1,15 +1,20 @@
 import csv
 import datetime
 import logging
+import os
 import pathlib
 import sys
 import time
 from typing import List
 
 import serial
+from dotenv import load_dotenv
 
-PORT = "/dev/cu.usbmodem143101"
-BAUDRATE = 9600
+load_dotenv()
+
+PORT = os.environ["SERIAL_PORT"]
+BAUDRATE = os.environ.get("SERIAL_BAUDRATE") or 9600
+INTERVAL = os.environ.get("REQUEST_INTERVAL") or 60
 
 
 def init_logger(name=None):
@@ -43,7 +48,7 @@ def request(logger):
                 if datetime.datetime.now() < one_minute_later:
                     time.sleep(1)
                     continue
-                one_minute_later = datetime.datetime.now() + datetime.timedelta(minutes=1)
+                one_minute_later = datetime.datetime.now() + datetime.timedelta(seconds=INTERVAL)
 
                 logger.debug("write")
                 ser.write(b"1")
@@ -84,4 +89,3 @@ def read_csv(filedate: datetime.datetime = None) -> List[dict]:
 
 if __name__ == '__main__':
     request(init_logger())
-    print(read_csv())
