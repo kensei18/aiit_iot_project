@@ -7,7 +7,7 @@
 Python はインストールされている前提で説明します。
 Python が未インストールの方は各々の環境に合わせてインストールしてください。
 
-推奨: version 3.9 以上
+推奨: version 3.10 以上
 
 環境構築には [poetry](https://python-poetry.org/) を使用します。
 

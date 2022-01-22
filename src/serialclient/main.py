@@ -82,7 +82,7 @@ def read_csv(filedate: datetime.datetime = None) -> List[dict]:
     try:
         with open(f"{pathlib.Path(__file__).parent.parent}/data/{filedate.strftime('%Y%m%d')}.csv", "r") as f:
             reader = csv.reader(f)
-            return [{'hip': row[0], 'back': row[1], 'timestamp': row[2]} for row in reader]
+            return [{'hip': int(row[0]) == 0, 'back': int(row[1]) == 0, 'timestamp': row[2]} for row in reader]
     except FileNotFoundError:
         return []
 
