@@ -14,7 +14,7 @@ load_dotenv()
 
 PORT = os.environ["SERIAL_PORT"]
 BAUDRATE = os.environ.get("SERIAL_BAUDRATE") or 9600
-INTERVAL = os.environ.get("REQUEST_INTERVAL") or 60
+INTERVAL = int(os.environ.get("REQUEST_INTERVAL")) or 60
 
 
 def init_logger(name=None):
