@@ -14,7 +14,7 @@ load_dotenv()
 
 PORT = os.environ["SERIAL_PORT"]
 BAUDRATE = os.environ.get("SERIAL_BAUDRATE") or 9600
-INTERVAL = os.environ.get("REQUEST_INTERVAL") or 60
+INTERVAL = int(os.environ.get("REQUEST_INTERVAL")) or 60
 
 
 def init_logger(name=None):
@@ -54,7 +54,7 @@ def request(logger):
                 ser.write(b"1")
                 counter = 0
                 while counter < 50:
-                    data = ser.readline().decode()
+                    data = ser.readline().decode().replace("\r\n", "")
                     if data:
                         logger.info(f"data: {data}")
                         write_to_csv(data.split(','))
@@ -70,7 +70,7 @@ def request(logger):
 def write_to_csv(data: list):
     now = datetime.datetime.now()
     data.append(now)
-    with open(f"{pathlib.Path(__file__).parent.parent}/data/{now.strftime('%Y%m%d')}.csv", "a") as f:
+    with open(f"{pathlib.Path(__file__).parent.parent}/data/{now.strftime('%Y%m%d')}.csv", "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(data)
 
